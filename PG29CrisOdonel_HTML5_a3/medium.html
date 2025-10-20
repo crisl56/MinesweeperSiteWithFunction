@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>Minesweeper Box Model</title>
+    <link rel="icon" type="x-icon" href="Images/2mine.png" />
+    <meta charset="utf-8" />
+    <meta name="TicTacToe" content="width=device-width, inital-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <header class="Header-Flex">
+        <h1>MineSweeper Website</h1>
+
+        <nav>
+            <ul>
+                <!--Could have it different colours like the tiles when near certain amount of mines-->
+                <li><a href="main.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="FlexDiv">
+        <!--Sidebar-->
+        <aside id="Sidebar">
+
+            <img src="Images/icon.png" alt="SiteLogo here" />
+
+            <ul>
+                <!--Could have it different colours like the tiles when near certain amount of mines pt2-->
+                <li><a href="main.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </aside>
+
+        <main>
+
+            <!--Medium Mode-->
+
+            <section class="PlayingGame" id="Green-Background">
+                <h1 id="Green-text">Playing Medium</h1>
+
+                <img src="Images/2mine.png" alt="Medium Picture here" width="200" class="pixelImg" />
+                <p>Placeholder Image for the game</p>
+
+            </section>
+
+            <section class="Rules">
+                <h1>Rules</h1>
+
+                <p>
+                    In this game, the board is divided into cells where mines can randomly appear.
+                    In order to win, you have to open all the cells while avoiding all the mines that appear.
+                    The way you can know that there if there is a mine near is determined by the number that
+                    shows up on the tile.
+
+                    <br>
+                    <br>
+                    EX: if 1 shows up on the tile then there is 1 mine next to the tile.
+                    Tiles count as being next to each other if they're one tile away from each other. (includes diagonals)
+
+                    <br>
+                    <br>
+                    Enjoy.
+                </p>
+            </section>
+
+        </main>
+
+    </div>
+
+    <footer>
+        <p>&copy;  2025 PG29 BIO WEBPAGE. All Rights Reserved</p>
+        <p>Site by Cris Odonel</p>
+    </footer>
+</body>
+
+</html>
