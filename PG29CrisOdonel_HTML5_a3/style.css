@@ -68,14 +68,6 @@ img {
         border: 2px solid #FFC914;
     }
 
-    /*game container*/
-#game-container {
-    display: grid;
-    grid-template-columns: repeat(9, 100px);
-    grid-gap: 5px;
-    justify-content: center;
-}
-
 /*Difficulties*/
 .Difficulties {
     background: #109BE6;
@@ -195,6 +187,14 @@ img {
         padding: 20px;
     }
 
+
+/*Cell*/
+.cell {
+    padding: 20px;
+    border: 5px solid black;
+    background: white;
+}
+
 /*Other*/
 .pixelImg {
     /*
@@ -210,6 +210,14 @@ img {
 }
 
 /* IDs Selectors */
+/*Game Container*/
+#game-container {
+    display: grid;
+    grid-template-columns: repeat(9, 100px);
+    grid-gap: 5px;
+    justify-content: center;
+}
+
 /*Sidebar*/
 #Sidebar {
     display: flex;

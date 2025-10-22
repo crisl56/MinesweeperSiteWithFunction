@@ -6,7 +6,7 @@ class MinesweeperLogic {
         this.hasMadeBoard = false;
 
         // Create tiles or something
-
+        this.InitializeBoard(5);
     }
 
     InitializeBoard(playerIndex) {
@@ -37,6 +37,7 @@ class MinesweeperLogic {
 
             // Set the cell to mine
             this.gameBoard.updateCell(randomIndex, "mine");
+            console.log("Mine");
 
             i++
         }
@@ -65,6 +66,8 @@ class MinesweeperLogic {
                 this.check(x + 1, y + 1); // diagonally bottom right
 
             this.gameBoard.updateCell(i, numOfMinesNear); // update the cell
+
+            console.log("check");
         }
     }
 
