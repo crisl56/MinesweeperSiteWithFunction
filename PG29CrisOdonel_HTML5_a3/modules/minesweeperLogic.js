@@ -6,7 +6,6 @@ class MinesweeperLogic {
         this.hasMadeBoard = false;
 
         // Create tiles or something
-        this.InitializeBoard(5);
     }
 
     InitializeBoard(playerIndex) {
