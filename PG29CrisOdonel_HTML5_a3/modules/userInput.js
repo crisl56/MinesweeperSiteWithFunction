@@ -13,7 +13,7 @@ class UserInput {
 
         if(!container) {return;}
 
-        container.addEventListener('click', this.boundHandler);
+        container.addEventListener('mousedown', this.boundHandler);
         container.addEventListener('contextmenu', (e) => e.preventDefault()); 
     }
 
@@ -24,9 +24,7 @@ class UserInput {
         const index = parseInt(cell.dataset.index, 10);
 
         if(event.button == 0){ this.gameLogic.makeMove(index); }
-        else if (event.button == 2) { console.log("right click userInput");}
-
-        //this.gameLogic.makeMove(index);
+        else if (event.button == 2) { this.gameLogic.toggleFlag(index);}
     }
 }
 

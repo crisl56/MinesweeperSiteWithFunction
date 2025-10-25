@@ -19,7 +19,8 @@ class MinesweeperBoard {
             '8': 'Images/8mine.png',
             '': 'Images/uncoveredTile.png',
             'mine': 'Images/mineTile.png',
-            'mineX': 'Images/mineTile.png',
+            'mineX': 'Images/mineWrongTile.png',
+            'mineExplode': 'Images/mineTileExplode.png',
             'flag': 'Images/flagTile.png',
         };
     }
@@ -62,8 +63,13 @@ class MinesweeperBoard {
         this.revealedBoard[index] = this.board[index];
     }
 
+    changeRevealedCell(index, value){
+        this.revealedBoard[index] = value;
+    }
+
     reset() {
         this.board = this.createBoard();
+        this.revealedBoard = this.createBoard();
     }
 }
 

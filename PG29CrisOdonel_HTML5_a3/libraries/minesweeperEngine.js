@@ -12,6 +12,12 @@ class MinesweeperEngine {
         this.UserInput = new UserInput(this.gameLogic, containerId);
 
         this.gameBoard.renderBoard(this.containerId);
+
+        this.resetBtn = document.getElementById('reset');
+
+        this.resetBtn?.addEventListener('click', () => {
+            this.gameLogic.reset();
+        })
     }
 }
 

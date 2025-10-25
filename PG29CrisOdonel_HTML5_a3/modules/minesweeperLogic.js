@@ -5,6 +5,9 @@ class MinesweeperLogic {
         this.gameOver = false;
         this.hasMadeBoard = false;
 
+        this.playingImageEl = document.getElementById('playingFace');
+        this.statusEl = document.getElementById('status');
+
         // Create tiles or something
     }
 
@@ -80,7 +83,7 @@ class MinesweeperLogic {
     check(x, y) {
 
         // Check if we are inside the board 
-        if (!((x >= 0 && y >= 0) && (x <= this.gameBoard.columns && y <= this.gameBoard.rows))) { return 0; }
+        if (!(this.isInsideBoard(x, y))) { return 0; }
 
         // Check that slot
         // const indexToCheck = y * this.gameBoard.columns + x; // formula that checks that index
@@ -91,16 +94,20 @@ class MinesweeperLogic {
         else { return 0; }
     }
 
+    isInsideBoard(x, y){
+        return (x >= 0 && y >= 0) && (x < this.gameBoard.columns && y < this.gameBoard.rows);
+    }
+
     getXFromIndex(index){
         return index % this.gameBoard.columns;
     }
 
-    getYFromIndex(index){
+    getYFromIndex(index) {
         return Math.floor(index / this.gameBoard.columns);
     }
 
     getIndexFromXY(x, y){
-        if (!((x >= 0 && y >= 0) && (x <= this.gameBoard.columns && y <= this.gameBoard.rows))) { return 0; }
+        if (!(this.isInsideBoard(x, y))) { return 0; }
 
         return y * this.gameBoard.columns + x; // formula that checks that index
     }
@@ -116,25 +123,89 @@ class MinesweeperLogic {
 
         // Check if we should spread out in zero
         if(this.gameBoard.revealedBoard[index] == "0") 
-            {
-                const x = this.getXFromIndex(index);
-                const y = this.getYFromIndex(index);
+        {
+            const x = this.getXFromIndex(index);
+            const y = this.getYFromIndex(index);
 
-                this.revealAround(x, y);
+            this.revealAround(x, y);
+        }
+
+        this.gameBoard.renderBoardDefault();
+
+        // Check for win
+        if(this.didWin()){
+            this.statusEl.textContent = "You won!!!";
+            this.playingImageEl.src = "Images/winFace.png";
+
+            this.gameover = true;
+        }
+
+        // Check for lost
+        if(this.didLose(index)){
+
+            // reveal the board
+
+            for(let i = 0; i < this.gameBoard.board.length; i++){
+                // set all false flags to minex
+                if(this.gameBoard.revealedBoard[i] == "flag" && this.gameBoard.board[i] !== "mine"){
+                    console.log("changing to mineX");
+                    this.gameBoard.revealedBoard[i] = "mineX";
+                }
+
+                // reveal all mines
+                if(this.gameBoard.revealedBoard[i] == "mineX" || this.gameBoard.board[i] !== "mine" || this.gameBoard.revealedBoard[i] == "mineExplode") {continue;}
+
+                this.gameBoard.revealCell(i);
             }
+
+            this.gameBoard.renderBoardDefault();
+
+            this.statusEl.textContent = "You loose!!!";
+            this.playingImageEl.src = "Images/looseFace.png";
+
+            this.gameOver = true;
+            
+        }
+    }
+
+    toggleFlag(index){
+        if (this.gameOver || this.gameBoard.revealedBoard[index] != "flag" && this.gameBoard.revealedBoard[index] !== "") return;
+
+
+        if(this.gameBoard.revealedBoard[index] == "flag") {this.gameBoard.revealedBoard[index] = "";}
+        else {this.gameBoard.revealedBoard[index] = "flag"; }
 
         this.gameBoard.renderBoardDefault();
     }
 
-    toggleFlag(index){
-        if (this.gameOver) return;
+    didWin(){
+        // Check every cell to see if everything is revealed
 
-        console.log("right click!");
+        for(let i = 0; i < this.gameBoard.board.length; i++){
+            // Don't check for a mine
+            if(this.gameBoard.board[i] == "mine") {continue;}
+
+            if(this.gameBoard.board[i] !== this.gameBoard.revealedBoard[i]) { return false; }
+        }
+
+        return true;
+    }
+
+    didLose(index){
+        if(this.gameBoard.revealedBoard[index] == "mine") {
+
+            this.gameBoard.changeRevealedCell(index, "mineExplode");
+            this.gameBoard.revealedBoard[index] = "mineExplode";
+
+            return true;
+        }
+
+        return false;
     }
 
     revealAround(x, y){
         // Check if we are inside the board 
-        if (!((x >= 0 && y >= 0) && (x <= this.gameBoard.columns && y <= this.gameBoard.rows))) { return 0; }
+        if (!(this.isInsideBoard(x, y))) { return 0; }
 
         // Check Top
         this.revealZeros(x - 1, y - 1);
@@ -154,7 +225,7 @@ class MinesweeperLogic {
     // Zero Spreading
     revealZeros(x, y){
         // Check if we are inside the board 
-        if (!((x >= 0 && y >= 0) && (x <= this.gameBoard.columns && y <= this.gameBoard.rows))) { return 0; }
+        if (!(this.isInsideBoard(x, y))) { return 0; }
 
         const index = this.getIndexFromXY(x, y);
 
@@ -169,6 +240,18 @@ class MinesweeperLogic {
 
         // reveal around 
         this.revealAround(x, y);
+    }
+
+    reset(){
+        this.playingImageEl.src = "Images/playingFace.png";
+        this.statusEl.textContent = "Play!";
+
+        this.gameOver = false;
+        this.hasMadeBoard = false;
+
+        this.gameBoard.reset();
+
+        this.gameBoard.renderBoardDefault();
     }
 }
 

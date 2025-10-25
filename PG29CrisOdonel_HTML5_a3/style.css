@@ -225,6 +225,17 @@ img {
     justify-content: center;
 }
 
+/*Status*/
+#status{
+    color: white;
+}
+
+/*Reset Button*/
+#reset{
+    padding: 10px;
+    margin: 20px;
+}
+
 /*Sidebar*/
 #Sidebar {
     display: flex;
