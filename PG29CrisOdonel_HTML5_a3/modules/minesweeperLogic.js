@@ -105,14 +105,6 @@ class MinesweeperLogic {
         return y * this.gameBoard.columns + x; // formula that checks that index
     }
 
-    makeMoveXY(x, y){
-        // Check if we are inside the board 
-        if (!((x >= 0 && y >= 0) && (x <= this.gameBoard.columns && y <= this.gameBoard.rows))) { return 0; }
-        
-        const indexToCheck = this.getIndexFromXY(x,y);
-        this.makeMove(indexToCheck);
-    }
-
     makeMove(index) {
         if (this.gameOver || this.gameBoard.revealedBoard[index]) return;
 
@@ -132,6 +124,12 @@ class MinesweeperLogic {
             }
 
         this.gameBoard.renderBoardDefault();
+    }
+
+    toggleFlag(index){
+        if (this.gameOver) return;
+
+        console.log("right click!");
     }
 
     revealAround(x, y){

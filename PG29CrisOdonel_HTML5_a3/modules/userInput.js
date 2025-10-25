@@ -10,7 +10,11 @@ class UserInput {
 
     addEventListeners() {
         const container = document.getElementById(this.containerId);
-        container?.addEventListener('click', this.boundHandler);
+
+        if(!container) {return;}
+
+        container.addEventListener('click', this.boundHandler);
+        container.addEventListener('contextmenu', (e) => e.preventDefault()); 
     }
 
     handleClick(event) {
@@ -19,7 +23,10 @@ class UserInput {
         if (!cell) return;
         const index = parseInt(cell.dataset.index, 10);
 
-        this.gameLogic.makeMove(index);
+        if(event.button == 0){ this.gameLogic.makeMove(index); }
+        else if (event.button == 2) { console.log("right click userInput");}
+
+        //this.gameLogic.makeMove(index);
     }
 }
 
