@@ -1,6 +1,7 @@
 class UserInput {
-    constructor(gameLogic) {
+    constructor(gameLogic, containerId) {
         this.gameLogic = gameLogic;
+        this.containerId = containerId;
 
         this.boundHandler = this.handleClick.bind(this);
 
@@ -8,7 +9,7 @@ class UserInput {
     }
 
     addEventListeners() {
-        const container = document.getElementById('game-container');
+        const container = document.getElementById(this.containerId);
         container?.addEventListener('click', this.boundHandler);
     }
 

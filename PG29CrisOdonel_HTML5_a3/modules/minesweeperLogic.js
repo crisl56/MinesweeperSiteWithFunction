@@ -16,9 +16,6 @@ class MinesweeperLogic {
         // This checks all the cells in the board to see if they're near a mine
         this.checkAllCells();
 
-        //this.gameBoard.renderBoard('game-container');
-        this.gameBoard.renderBoardDefault();
-
         this.hasMadeBoard = true;
     }
 
@@ -36,7 +33,6 @@ class MinesweeperLogic {
 
             // Set the cell to mine
             this.gameBoard.updateCell(randomIndex, "mine");
-            console.log("Mine");
 
             i++
         }
@@ -66,7 +62,6 @@ class MinesweeperLogic {
 
             this.gameBoard.updateCell(i, numOfMinesNear); // update the cell
 
-            console.log("check");
         }
     }
 
@@ -92,13 +87,15 @@ class MinesweeperLogic {
     }
 
     makeMove(index) {
-        if (this.gameOver || this.gameBoard.board[index]) return;
+        if (this.gameOver || this.gameBoard.revealedBoard[index]) return;
 
         if (!this.hasMadeBoard) {
             this.InitializeBoard(index);
         }
 
+        this.gameBoard.revealCell(index);
 
+        this.gameBoard.renderBoardDefault();
     }
 }
 

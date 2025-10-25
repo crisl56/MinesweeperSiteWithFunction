@@ -190,10 +190,17 @@ img {
 
 /*Cell*/
 .cell {
-    padding: 20px;
-    border: 5px solid black;
-    background: white;
+    image-rendering: pixelated;
+    cursor: pointer;
 }
+
+.cell-image{
+    width:100%;
+    height: 100%;
+    /*object-fit: cover;*/
+}
+
+
 
 /*Other*/
 .pixelImg {
@@ -229,6 +236,7 @@ img {
     width: 150px;
     height: 100vh;
 }
+
 
     #Sidebar ul {
         list-style: none;
