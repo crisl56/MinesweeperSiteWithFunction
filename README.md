@@ -35,6 +35,11 @@ You can edit the minesweeper.js file as an example of how a board is setup.
 The variables should be self explained
 If you have any questions feel free to message me!
 
+# - Requirements - #
+
+- Node.js needs to be installed for you to run on your own server - https://nodejs.org/en/download
+- A web browser!!!
+
 # - Note - #
 
 This is built upon my previous box model of the minesweeper site.
