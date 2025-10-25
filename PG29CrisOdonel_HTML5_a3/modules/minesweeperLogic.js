@@ -45,8 +45,11 @@ class MinesweeperLogic {
         // 3 nested for loops lets gooo!!!!
         for (let i = 0; i < this.gameBoard.board.length; i++) { // Loop code through every cell
 
-            const y = Math.floor(i / this.gameBoard.columns);
-            const x = i % this.gameBoard.columns;
+            //const y = Math.floor(i / this.gameBoard.columns);
+            //const x = i % this.gameBoard.columns;
+
+            const x = this.getXFromIndex(i);
+            const y = this.getYFromIndex(i);
 
             if (this.check(x, y) == 1) { continue; } // skip that tile if it is a mine
 
@@ -80,10 +83,34 @@ class MinesweeperLogic {
         if (!((x >= 0 && y >= 0) && (x <= this.gameBoard.columns && y <= this.gameBoard.rows))) { return 0; }
 
         // Check that slot
-        const indexToCheck = y * this.gameBoard.columns + x; // formula that checks that index
+        // const indexToCheck = y * this.gameBoard.columns + x; // formula that checks that index
+
+        const indexToCheck = this.getIndexFromXY(x, y)
 
         if (this.gameBoard.board[indexToCheck] == "mine") { return 1; }
         else { return 0; }
+    }
+
+    getXFromIndex(index){
+        return index % this.gameBoard.columns;
+    }
+
+    getYFromIndex(index){
+        return Math.floor(index / this.gameBoard.columns);
+    }
+
+    getIndexFromXY(x, y){
+        if (!((x >= 0 && y >= 0) && (x <= this.gameBoard.columns && y <= this.gameBoard.rows))) { return 0; }
+
+        return y * this.gameBoard.columns + x; // formula that checks that index
+    }
+
+    makeMoveXY(x, y){
+        // Check if we are inside the board 
+        if (!((x >= 0 && y >= 0) && (x <= this.gameBoard.columns && y <= this.gameBoard.rows))) { return 0; }
+        
+        const indexToCheck = this.getIndexFromXY(x,y);
+        this.makeMove(indexToCheck);
     }
 
     makeMove(index) {
@@ -95,7 +122,55 @@ class MinesweeperLogic {
 
         this.gameBoard.revealCell(index);
 
+        // Check if we should spread out in zero
+        if(this.gameBoard.revealedBoard[index] == "0") 
+            {
+                const x = this.getXFromIndex(index);
+                const y = this.getYFromIndex(index);
+
+                this.revealAround(x, y);
+            }
+
         this.gameBoard.renderBoardDefault();
+    }
+
+    revealAround(x, y){
+        // Check if we are inside the board 
+        if (!((x >= 0 && y >= 0) && (x <= this.gameBoard.columns && y <= this.gameBoard.rows))) { return 0; }
+
+        // Check Top
+        this.revealZeros(x - 1, y - 1);
+        this.revealZeros(x, y - 1);
+        this.revealZeros(x + 1, y - 1);
+
+        // Check Same level
+        this.revealZeros(x - 1, y);
+        this.revealZeros(x + 1, y);
+
+        // Check Bottom
+        this.revealZeros(x - 1, y + 1);
+        this.revealZeros(x, y + 1);
+        this.revealZeros(x + 1, y + 1);
+    }
+
+    // Zero Spreading
+    revealZeros(x, y){
+        // Check if we are inside the board 
+        if (!((x >= 0 && y >= 0) && (x <= this.gameBoard.columns && y <= this.gameBoard.rows))) { return 0; }
+
+        const index = this.getIndexFromXY(x, y);
+
+        // Check if that cell is uncovered, stop if it is
+        if(this.gameBoard.revealedBoard[index] !== "") { return 0; }
+
+        // reveal if it isn't
+        this.gameBoard.revealCell(index);
+
+        // Check if that cell is even 0, stop if it isn't
+        if(this.gameBoard.board[index] !== 0) { return 0; }
+
+        // reveal around 
+        this.revealAround(x, y);
     }
 }
 
