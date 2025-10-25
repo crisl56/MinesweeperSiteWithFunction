@@ -13,11 +13,17 @@ class MinesweeperEngine {
 
         this.gameBoard.renderBoard(this.containerId);
 
+        // Add Reset Button
         this.resetBtn = document.getElementById('reset');
 
         this.resetBtn?.addEventListener('click', () => {
             this.gameLogic.reset();
         })
+
+        // Change the container style to match the columns
+        this.container = document.getElementById(containerId);
+
+        this.container.style.gridTemplateColumns = `repeat(${columns}, 100px)`;
     }
 }
 

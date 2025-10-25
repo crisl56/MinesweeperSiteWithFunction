@@ -221,7 +221,7 @@ img {
 #game-container {
     display: grid;
     grid-template-columns: repeat(9, 100px);
-    grid-gap: 5px;
+    grid-gap: 0px;
     justify-content: center;
 }
 

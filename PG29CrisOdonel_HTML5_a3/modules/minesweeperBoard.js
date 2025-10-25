@@ -23,6 +23,8 @@ class MinesweeperBoard {
             'mineExplode': 'Images/mineTileExplode.png',
             'flag': 'Images/flagTile.png',
         };
+
+
     }
 
     createBoard() {

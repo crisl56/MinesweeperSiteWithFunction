@@ -8,7 +8,6 @@ class MinesweeperLogic {
         this.playingImageEl = document.getElementById('playingFace');
         this.statusEl = document.getElementById('status');
 
-        // Create tiles or something
     }
 
     InitializeBoard(playerIndex) {
